@@ -1,2 +1,5 @@
 ---
 # vars file for ansible-galaxy-libjingle
+webrtc_svn_repo: https://webrtc.googlecode.com/svn
+webrtc_repo: git+https://chromium.googlesource.com/external/webrtc
+webrtc_src: /usr/local/src/webrtc
