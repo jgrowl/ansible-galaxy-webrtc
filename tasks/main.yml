@@ -34,9 +34,9 @@
   environment: path_env
 
 - name: Build libjingle
-  shell: GYP_DEFINES="libjingle_java=1 build_with_libjingle=1 build_with_chromium=0 target_arch=x64" gclient runhooks --force
+  shell: GYP_DEFINES="libjingle_java=1 build_with_libjingle=1 build_with_chromium=0 target_arch=x64" gclient runhooks --force chdir={{ webrtc_src }}
   environment: path_env
 
 - name: Build jar
-  shell: ninja -C out/Debug libjingle_peerconnection_jar
+  shell: ninja -C out/Debug libjingle_peerconnection_jar chdir={{ webrtc_src }}/trunk
   environment: path_env
