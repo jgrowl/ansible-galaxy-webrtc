@@ -1,4 +1,4 @@
-Role Name
+webrtc
 ========
 
 Builds webrtc
@@ -18,6 +18,18 @@ ExamplePlaybook
     - hosts: localhost
       roles:
         - { role: jgrowl.webrtc }
+
+Example inventory
+------------------------
+
+    [local]
+    localhost
+
+Example commands
+-----------------------
+
+`apt-get update && apt-get install ansible python-apt && ansible-galaxy install jgrowl.webrtc`
+  ansible-playbook local.yml -i hosts.yml --connection=local`
 
 License
 -------
