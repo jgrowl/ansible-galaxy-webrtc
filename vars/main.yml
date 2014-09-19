@@ -6,4 +6,4 @@ webrtc_repo: git+https://chromium.googlesource.com/external/webrtc
 webrtc_src: /usr/local/src/webrtc
 
 path_env:
-  PATH: {{ depot_tools_dir }}:{{ ansible_env.PATH }}
+  PATH: "{{ depot_tools_dir }}:{{ ansible_env.PATH }}"
