@@ -3,38 +3,40 @@
   apt: pkg={{ item }} state=installed update_cache=yes
   with_items:
     - git
+    - git-svn
     - build-essential
     - python
     - subversion
     - wget
     - pkg-config
-    - gtk+-2.0
+    - libgtk2.0-dev
+    - libxtst-dev
+    - libxss-dev
+    - libudev-dev
+    - libgcrypt11-dev
+    - libpci-dev
+    - libxtst-dev
+    - libgnome-keyring-dev
+    - libdrm-dev
+    - libudev-dev
     - libnss3
+    - libgconf2-dev
     - libnss3-dev
     - libasound2-dev
     - libpulse-dev
 
-  #- command: gclient config --name trunk 'git+https://chromium.googlesource.com/external/webrtc' chdir={{ webrtc_src }}
+- file: path={{ webrtc_src }} state=directory
+
 - command: gclient config --name trunk '{{ webrtc_repo }}' chdir={{ webrtc_src }}
   environment: path_env
- 
-- command: gclient sync -j200 chdir={{ webrtc_src }} creates={{ webrtc_src }}/trunk
+
+- command: gclient sync -j200 chdir={{ webrtc_src }}
   environment: path_env
 
-- command: git svn init --prefix=origin/ {{ webrtc_svn_repo }} -Ttrunk --rewrite-root={{ webrtc_svn_repo }} chdir={{ webrtc_src }}/trunk
+- name: Build libjingle
+  shell: GYP_DEFINES="libjingle_java=1 build_with_libjingle=1 build_with_chromium=0 target_arch=x64" gclient runhooks --force
   environment: path_env
 
-- command: git config svn-remote.svn.fetch trunk:refs/remotes/origin/master chdir={{ webrtc_src }}/trunk
+- name: Build jar
+  shell: ninja -C out/Debug libjingle_peerconnection_jar
   environment: path_env
-
-- command: git svn fetch chdir={{ webrtc_src }}/trunk
-  environment: path_env
-
-- command: git checkout master chdir={{ webrtc_src }}/trunk
-  environment: path_env
-
-- command: git branch -vv chdir={{ webrtc_src }}/trunk
-  environment: path_env
-
-#- name: Build libjingle
-#  shell: GYP_DEFINES="libjingle_java=1 build_with_libjingle=1 build_with_chromium=0 target_arch=x64 java_home=$JAVA_HOME" gclient runhooks --force 

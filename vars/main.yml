@@ -4,6 +4,8 @@ depot_tools_dir: /usr/local/depot_tools
 webrtc_svn_repo: https://webrtc.googlecode.com/svn
 webrtc_repo: git+https://chromium.googlesource.com/external/webrtc
 webrtc_src: /usr/local/src/webrtc
+webrtc_java_home: /usr/lib/jvm/java-7-oracle
 
 path_env:
   PATH: "{{ depot_tools_dir }}:{{ ansible_env.PATH }}"
+  JAVA_HOME: "{{ webrtc_java_home }}"
