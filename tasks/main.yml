@@ -15,13 +15,26 @@
     - libpulse-dev
 
   #- command: gclient config --name trunk 'git+https://chromium.googlesource.com/external/webrtc' chdir={{ webrtc_src }}
-  - command: gclient config --name trunk '{{ webrtc_repo }}' chdir={{ webrtc_src }}
-  - command: gclient sync -j200 chdir={{ webrtc_src }}
-  - command: git svn init --prefix=origin/ {{ webrtc_svn_repo }} -Ttrunk --rewrite-root={{ webrtc_svn_repo }} chdir={{ webrtc_src }}/trunk
-  - command: git config svn-remote.svn.fetch trunk:refs/remotes/origin/master chdir={{ webrtc_src }}/trunk
-  - command: git svn fetch chdir={{ webrtc_src }}/trunk
-  - command: git checkout master chdir={{ webrtc_src }}/trunk
-  - command: git branch -vv chdir={{ webrtc_src }}/trunk
+- command: gclient config --name trunk '{{ webrtc_repo }}' chdir={{ webrtc_src }}
+  environment: path_env
+ 
+- command: gclient sync -j200 chdir={{ webrtc_src }} creates={{ webrtc_src }}/trunk
+  environment: path_env
+
+- command: git svn init --prefix=origin/ {{ webrtc_svn_repo }} -Ttrunk --rewrite-root={{ webrtc_svn_repo }} chdir={{ webrtc_src }}/trunk
+  environment: path_env
+
+- command: git config svn-remote.svn.fetch trunk:refs/remotes/origin/master chdir={{ webrtc_src }}/trunk
+  environment: path_env
+
+- command: git svn fetch chdir={{ webrtc_src }}/trunk
+  environment: path_env
+
+- command: git checkout master chdir={{ webrtc_src }}/trunk
+  environment: path_env
+
+- command: git branch -vv chdir={{ webrtc_src }}/trunk
+  environment: path_env
 
 #- name: Build libjingle
 #  shell: GYP_DEFINES="libjingle_java=1 build_with_libjingle=1 build_with_chromium=0 target_arch=x64 java_home=$JAVA_HOME" gclient runhooks --force 

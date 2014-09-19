@@ -1,5 +1,9 @@
 ---
 # vars file for ansible-galaxy-libjingle
+depot_tools_dir: /usr/local/depot_tools
 webrtc_svn_repo: https://webrtc.googlecode.com/svn
 webrtc_repo: git+https://chromium.googlesource.com/external/webrtc
 webrtc_src: /usr/local/src/webrtc
+
+path_env:
+  PATH: {{ depot_tools_dir }}:{{ ansible_env.PATH }}
