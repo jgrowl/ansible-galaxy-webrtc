@@ -29,6 +29,7 @@ Example commands
 -----------------------
 
 `apt-get update && apt-get install ansible python-apt && ansible-galaxy install jgrowl.webrtc`
+
 `ansible-playbook local.yml -i hosts.yml --connection=local`
 
 License
