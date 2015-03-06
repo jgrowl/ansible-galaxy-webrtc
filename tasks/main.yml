@@ -1,6 +1,6 @@
 ---
 - name: Install dependencies
-  apt: pkg={{ item }} state=installed update_cache=yes
+  apt: pkg={{ item }} state=installed
   with_items:
     - git
     - git-svn
@@ -27,16 +27,16 @@
 
 - file: path={{ webrtc_src }} state=directory
 
-- command: gclient config --name trunk '{{ webrtc_repo }}' chdir={{ webrtc_src }}
+- command: gclient config --name src '{{ webrtc_repo }}' chdir={{ webrtc_src }}
   environment: path_env
 
 - command: gclient sync -j200 chdir={{ webrtc_src }}
   environment: path_env
 
-- name: Build libjingle
+- name: Build webrtc
   shell: GYP_DEFINES="libjingle_java=1 build_with_libjingle=1 build_with_chromium=0 target_arch=x64" gclient runhooks --force chdir={{ webrtc_src }}
   environment: path_env
 
 - name: Build jar
-  shell: ninja -C out/Debug libjingle_peerconnection_jar chdir={{ webrtc_src }}/trunk
+  shell: ninja -C out/Debug libjingle_peerconnection_jar chdir={{ webrtc_src }}/src
   environment: path_env
