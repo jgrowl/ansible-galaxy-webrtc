@@ -23,7 +23,7 @@ ExamplePlaybook
 Example commands
 -----------------------
 
-`apt-get update && apt-get install ansible python-apt && ansible-galaxy install jgrowl.webrtc`
+`apt-get update && apt-get install ansible python-apt && ansible-galaxy install jgrowl.webrtc && ansible-galaxy install jgrowl.depot_tools`
 
 `ansible-playbook -K  main.yml -i localhost, --connection=local`
 
