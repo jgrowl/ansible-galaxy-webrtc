@@ -10,7 +10,7 @@ Dependencies
 ------------
 
   * jgrowl.depot_tools
-  * ANXS.oracle-jdk
+  * php-coder.oraclejdk
 
 ExamplePlaybook
 -------------------------
